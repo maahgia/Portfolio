@@ -965,8 +965,18 @@ footer {
     <a href="https://instagram.com/miaalves" target="_blank">Instagram</a>
     <a href="#hero">Back to top ↑</a>
   </div>
+  
 </footer>
-
+<!-- LIGHTBOX MARKUP -->
+<div class="lightbox-modal" id="lightboxModal">
+  <div class="lightbox-content">
+    <button class="lightbox-close" id="lightboxClose">CLOSE X</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&lt;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="Fullscreen view" />
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">&gt;</button>
+  </div>
+</div>
+  
 <script>
 // Nav scroll effect
 const navbar = document.getElementById('navbar');
