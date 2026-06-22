@@ -304,6 +304,12 @@ section { padding: 120px 64px; }
 .lightbox-nav:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
 .lightbox-prev { left: -80px; }
 .lightbox-next { right: -80px; }
+@media (max-width: 768px) {
+  .lightbox-prev { left: 10px; bottom: -70px; top: auto; transform: none; }
+  .lightbox-next { right: 10px; bottom: -70px; top: auto; transform: none; }
+  .lightbox-close { top: -60px; right: 10px; }
+  .lightbox-content { max-width: 95vw; }
+}
 
 /* ABOUT */
 #about {
@@ -339,9 +345,14 @@ section { padding: 120px 64px; }
   background: var(--accent);
   transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+.photo-placeholder {
+  background: repeating-linear-gradient(45deg, #1a1816 0px, #1a1816 4px, #201e1b 4px, #201e1b 8px);
+  display: flex; align-items: center; justify-content: center;
+  aspect-ratio: 4/5; max-width: 460px;
+}
 .headshot-photo {
-  display: block; width: 100%; max-width: 460px;
-  aspect-ratio: 4/5; object-fit: cover; object-position: center;
+  display: block; width: 100%; height: 100%; object-fit: cover; object-position: center;
 }
 
 /* CLIENTS */
@@ -368,8 +379,8 @@ section { padding: 120px 64px; }
 /* CONTACT */
 #contact { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0; }
 .contact-left { padding: 100px 64px; border-right: 1px solid var(--border); }
-.contact-tagline { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(36px, 4vw, 56px); line-height: 1.18; letter-spacing: -0.02em; color: var(--fg); margin-top: 24px; padding-bottom: 16px; }
-.contact-tagline span { color: var(--accent); display: block; line-height: 1.15; padding-bottom: 18px; }
+.contact-tagline { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(36px, 4vw, 56px); line-height: 1.18; letter-spacing: -0.02em; color: var(--fg); margin-top: 24px; padding-bottom: 16px; overflow: visible; }
+.contact-tagline span { color: var(--accent); font-family: 'Syne', sans-serif; font-weight: 800; display: block; line-height: 1.15; padding-bottom: 18px; margin-bottom: -10px; overflow: visible; }
 .contact-links { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; }
 .contact-link { display: flex; align-items: center; gap: 16px; font-size: 14px; color: var(--fgMid); text-decoration: none; padding: 16px 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
 .contact-link:hover { color: var(--fg); }
@@ -497,11 +508,10 @@ footer { display: flex; justify-content: space-between; align-items: center; pad
         <div class="card-info">
           <div class="card-tag">Promotional video for Rio Anime Club</div>
           <h3 class="card-title">Rio Anime Club Promo</h3>
-          <p class="card-desc">Novo vídeo promocional oficial editado para as mídias do evento Rio Anime Club.</p>
+          <p class="card-desc">Novo vídeo promocional editado para o evento Rio Anime Club.</p>
         </div>
       </div>
 
-      <!-- VÍDEO ANTERIOR TRANSFERIDO PARA SHORT FORM -->
       <div class="project-card" data-cat="video">
         <div class="video-embed">
           <iframe src="https://www.youtube.com/embed/q6I9E-NfM-4" allowfullscreen></iframe>
@@ -509,11 +519,10 @@ footer { display: flex; justify-content: space-between; align-items: center; pad
         <div class="card-info">
           <div class="card-tag">Short form video edit</div>
           <h3 class="card-title">Rio Anime Club - Event Clip</h3>
-          <p class="card-desc">Edição dinâmica em formato vertical capturando a essência do evento.</p>
+          <p class="card-desc">Edição de vídeo em formato curto com os melhores momentos do evento.</p>
         </div>
       </div>
 
-      <!-- OUTROS VÍDEOS -->
       <div class="project-card" data-cat="video">
         <div class="video-embed">
           <iframe src="https://www.youtube.com/embed/S26T7bA_5p0" allowfullscreen></iframe>
@@ -521,41 +530,40 @@ footer { display: flex; justify-content: space-between; align-items: center; pad
         <div class="card-info">
           <div class="card-tag">Short form video edit</div>
           <h3 class="card-title">Capcut Template Tutorial</h3>
-          <p class="card-desc">Edição de vídeo tutorial explicativo focado em retenção de público.</p>
         </div>
       </div>
 
       <!-- THUMBNAILS COM SUPORTE AO LIGHTBOX -->
       <div class="project-card" data-cat="thumbnail">
         <div class="img-wrap">
-          <img class="work-image" src="thumnail.png" alt="Gaming Thumbnail" />
+          <img class="work-image" src="thumnail.png" alt="Thumbnail Arte" />
           <div class="overlay"></div>
         </div>
         <div class="card-info">
           <div class="card-tag">Thumbnails Design</div>
-          <h3 class="card-title">Gaming Thumbnail Portfolio</h3>
+          <h3 class="card-title">Gaming Thumbnail</h3>
         </div>
       </div>
 
       <div class="project-card" data-cat="thumbnail">
         <div class="img-wrap">
-          <img class="work-image" src="Haru_e_Havock.jfif" alt="Haru e Havock" />
+          <img class="work-image" src="Haru_e_Havock.jfif" alt="Thumbnail Arte" />
           <div class="overlay"></div>
         </div>
         <div class="card-info">
           <div class="card-tag">Thumbnails Design</div>
-          <h3 class="card-title">Haru & Havock Feature</h3>
+          <h3 class="card-title">Haru & Havock</h3>
         </div>
       </div>
 
       <div class="project-card" data-cat="thumbnail">
         <div class="img-wrap">
-          <img class="work-image" src="thumb_crunchyroll.jpg" alt="Crunchyroll Style" />
+          <img class="work-image" src="thumb_crunchyroll.jpg" alt="Thumbnail Arte" />
           <div class="overlay"></div>
         </div>
         <div class="card-info">
           <div class="card-tag">Thumbnails Design</div>
-          <h3 class="card-title">Crunchyroll Style Art</h3>
+          <h3 class="card-title">Crunchyroll Style Thumbnail</h3>
         </div>
       </div>
     </div>
@@ -590,7 +598,7 @@ footer { display: flex; justify-content: space-between; align-items: center; pad
     </div>
   </section>
 
-  <!-- RESUME / EXPERIENCIA -->
+  <!-- RESUME -->
   <section id="resume" class="reveal">
     <div class="resume-left">
       <div class="section-label">Background</div>
