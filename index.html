@@ -7,7 +7,7 @@
 <title>Mia Alves - Video Editor & Content Producer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght=0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -137,7 +137,7 @@ nav.scrolled {
 }
 
 .hero-right {
-  padding: 80px 64px 80px;
+  padding: 160px 64px 80px;
   display: flex; flex-direction: column; gap: 12px;
 }
 .hero-right-label {
@@ -198,6 +198,10 @@ section { padding: 120px 64px; }
   line-height: 0.92; letter-spacing: -0.02em; color: var(--fg);
 }
 
+/* REVEAL SYSTEM */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
 /* WORK */
 #work { border-bottom: 1px solid var(--border); }
 .work-header {
@@ -235,10 +239,6 @@ section { padding: 120px 64px; }
   object-fit: cover;
   object-position: center;
 }
-.work-image-link {
-  display: block;
-}
-.project-card img-placeholder { display: block; }
 .project-card .overlay {
   position: absolute; inset: 0;
   background: linear-gradient(to top, rgba(12,10,9,0.92) 0%, rgba(12,10,9,0.1) 60%, transparent 100%);
@@ -304,19 +304,12 @@ section { padding: 120px 64px; }
 .lightbox-nav:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
 .lightbox-prev { left: -80px; }
 .lightbox-next { right: -80px; }
-@media (max-width: 768px) {
-  .lightbox-prev { left: 10px; bottom: -70px; top: auto; transform: none; }
-  .lightbox-next { right: 10px; bottom: -70px; top: auto; transform: none; }
-  .lightbox-close { top: -60px; right: 10px; }
-  .lightbox-content { max-width: 95vw; }
-}
 
 /* ABOUT */
 #about {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
-  padding: 0;
+  gap: 0; padding: 0;
   border-bottom: 1px solid var(--border);
 }
 .about-left {
@@ -346,186 +339,326 @@ section { padding: 120px 64px; }
   background: var(--accent);
   transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-.photo-placeholder {
-  background: repeating-linear-gradient(45deg, #1a1816 0px, #1a1816 4px, #201e1b 4px, #201e1b 8px);
-  display: flex; align-items: center; justify-content: center;
-  aspect-ratio: 3/4; max-width: 320px;
-}
 .headshot-photo {
-  display: block;
-  width: 100%;
-  max-width: 460px;
-  aspect-ratio: 4/5;
-  object-fit: cover;
-  object-position: center;
-}
-.tools-wrap { margin-top: 0; }
-.photo-placeholder span {
-  font-family: monospace; font-size: 11px; color: var(--fgDim);
-  text-align: center; padding: 16px; line-height: 1.6;
+  display: block; width: 100%; max-width: 460px;
+  aspect-ratio: 4/5; object-fit: cover; object-position: center;
 }
 
 /* CLIENTS */
-#clients {
-  border-bottom: 1px solid var(--border);
-  padding: 80px 64px;
-}
-.clients-inner {
-  display: flex; align-items: center;
-  gap: 0;
-}
-.clients-label {
-  font-size: 11px; letter-spacing: 0.14em; color: var(--fgMid);
-  font-family: 'DM Sans', sans-serif;
-  flex-shrink: 0; width: 200px;
-}
-.clients-logos {
-  display: flex; gap: 0; align-items: center;
-  flex: 1; flex-wrap: wrap;
-}
-.client-logo {
-  padding: 20px 36px;
-  border-left: 1px solid var(--border);
-  font-family: 'Syne', sans-serif;
-  font-weight: 700; font-size: 11px;
-  letter-spacing: 0.12em; color: var(--fgDim);
-  transition: color 0.2s;
-  cursor: default;
-}
+#clients { border-bottom: 1px solid var(--border); padding: 80px 64px; }
+.clients-inner { display: flex; align-items: center; gap: 0; }
+.clients-label { font-size: 11px; letter-spacing: 0.14em; color: var(--fgMid); font-family: 'DM Sans', sans-serif; flex-shrink: 0; width: 200px; }
+.clients-logos { display: flex; gap: 0; align-items: center; flex: 1; flex-wrap: wrap; }
+.client-logo { padding: 20px 36px; border-left: 1px solid var(--border); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.12em; color: var(--fgDim); transition: color 0.2s; cursor: default; }
 .client-logo:hover { color: var(--fgMid); }
 
 /* RESUME */
-#resume {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0; padding: 0;
-  border-bottom: 1px solid var(--border);
-}
-.resume-left {
-  padding: 100px 64px;
-  border-right: 1px solid var(--border);
-  display: flex; flex-direction: column; justify-content: center;
-}
-.resume-right {
-  padding: 100px 64px;
-  background: var(--bg2);
-  display: flex; flex-direction: column; gap: 0;
-}
-.experience-item {
-  padding: 28px 0;
-  border-bottom: 1px solid var(--border);
-  display: grid; grid-template-columns: 120px 1fr; gap: 24px;
-}
-.exp-year {
-  font-family: 'Syne', sans-serif;
-  font-size: 12px; color: var(--accent); letter-spacing: 0.06em; padding-top: 2px;
-}
-.exp-role {
-  font-family: 'Syne', sans-serif;
-  font-weight: 600; font-size: 15px; color: var(--fg);
-}
+#resume { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0; border-bottom: 1px solid var(--border); }
+.resume-left { padding: 100px 64px; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
+.resume-right { padding: 100px 64px; background: var(--bg2); display: flex; flex-direction: column; gap: 0; }
+.experience-item { padding: 28px 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 120px 1fr; gap: 24px; }
+.exp-year { font-family: 'Syne', sans-serif; font-size: 12px; color: var(--accent); letter-spacing: 0.06em; padding-top: 2px; }
+.exp-role { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 15px; color: var(--fg); }
 .exp-company { font-size: 13px; color: var(--fgMid); margin-top: 3px; }
 .exp-desc { font-size: 12px; color: var(--fgDim); margin-top: 8px; line-height: 1.5; }
-
-.resume-download-box {
-  margin-top: 36px; padding: 28px 32px;
-  border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-}
-.dl-meta { }
+.resume-download-box { margin-top: 36px; padding: 28px 32px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
 .dl-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 14px; color: var(--fg); }
 .dl-sub { font-size: 12px; color: var(--fgMid); margin-top: 4px; }
 
 /* CONTACT */
-#contact {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0; padding: 0;
-}
-.contact-left {
-  padding: 100px 64px;
-  border-right: 1px solid var(--border);
-}
-.contact-tagline {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: clamp(36px, 4vw, 56px);
-  line-height: 1.18; letter-spacing: -0.02em; color: var(--fg);
-  margin-top: 24px;
-  padding-bottom: 16px;
-  overflow: visible;
-}
-.contact-tagline span {
-  color: var(--accent);
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  display: block;
-  line-height: 1.15;
-  padding-bottom: 18px;
-  margin-bottom: -10px;
-  overflow: visible;
-}
+#contact { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0; }
+.contact-left { padding: 100px 64px; border-right: 1px solid var(--border); }
+.contact-tagline { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(36px, 4vw, 56px); line-height: 1.18; letter-spacing: -0.02em; color: var(--fg); margin-top: 24px; padding-bottom: 16px; }
+.contact-tagline span { color: var(--accent); display: block; line-height: 1.15; padding-bottom: 18px; }
 .contact-links { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; }
-.contact-link {
-  display: flex; align-items: center; gap: 16px;
-  font-size: 14px; color: var(--fgMid); text-decoration: none;
-  padding: 16px 0; border-bottom: 1px solid var(--border);
-  transition: color 0.2s;
-}
+.contact-link { display: flex; align-items: center; gap: 16px; font-size: 14px; color: var(--fgMid); text-decoration: none; padding: 16px 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
 .contact-link:hover { color: var(--fg); }
-.contact-link-icon {
-  width: 36px; height: 36px;
-  border: 1px solid var(--border); border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; font-size: 13px;
-}
+.contact-link-icon { width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 13px; }
 .contact-link-arrow { margin-left: auto; color: var(--fgDim); transition: transform 0.2s, color 0.2s; }
 .contact-link:hover .contact-link-arrow { transform: translate(3px, -3px); color: var(--accent); }
-
-.contact-right {
-  padding: 100px 64px;
-  background: var(--bg2);
-  display: flex; flex-direction: column;
-  justify-content: center;
-}
-.contact-note {
-  font-size: 17px;
-  line-height: 1.7;
-  color: var(--fgMid);
-  max-width: 480px;
-}
+.contact-right { padding: 100px 64px; background: var(--bg2); display: flex; flex-direction: column; justify-content: center; }
+.contact-note { font-size: 17px; line-height: 1.7; color: var(--fgMid); max-width: 480px; }
 .contact-note strong { color: var(--fg); font-weight: 500; }
-.contact-services {
-  margin-top: 40px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-top: 1px solid var(--border);
-  border-left: 1px solid var(--border);
-}
-.contact-service {
-  min-height: 120px;
-  padding: 22px;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-.contact-service-label {
-  font-family: 'Syne', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--accent);
-}
-.contact-service-text {
-  margin-top: 12px;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--fgMid);
-}
+.contact-services { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); border-left: 1px solid var(--border); }
+.contact-service { min-height: 120px; padding: 22px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.contact-service-label { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); }
+.contact-service-text { margin-top: 12px; font-size: 13px; line-height: 1.5; color: var(--fgMid); }
 
 /* FOOTER */
+footer { display: flex; justify-content: space-between; align-items: center; padding: 48px 64px; border-top: 1px solid var(--border); font-size: 12px; color: var(--fgDim); }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { color: var(--fgMid); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--fg); }
+
+@media (max-width: 968px) {
+  nav { padding: 0 24px; }
+  #hero, #about, #resume, #contact { grid-template-columns: 1fr; }
+  .hero-left, .hero-right, .about-left, .about-right, .resume-left, .resume-right, .contact-left, .contact-right, section { padding: 80px 24px; }
+  .hero-left { border-right: none; border-bottom: 1px solid var(--border); }
+  .about-left { border-right: none; border-bottom: 1px solid var(--border); }
+  .resume-left { border-right: none; border-bottom: 1px solid var(--border); }
+  .contact-left { border-right: none; border-bottom: 1px solid var(--border); }
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card.featured { grid-column: span 1; }
+  .work-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .clients-inner { flex-direction: column; align-items: flex-start; gap: 32px; }
+  .client-logo { border-left: none; border-top: 1px solid var(--border); width: 100%; padding: 20px 0; }
+  footer { flex-direction: column; gap: 24px; padding: 48px 24px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">MIA ALVES</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <div>
+        <div class="hero-eyebrow">AVAILABLE FOR FREELANCE WORK</div>
+        <h1 class="hero-name">Mia<br />Alves<span>.</span></h1>
+        <p class="hero-bio">Digital Content Producer & Video Editor crafting premium visual stories for creators and brands.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn-primary">START A PROJECT</a>
+          <a href="#work" class="btn-ghost">VIEW WORK ↓</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stats-divider"></div>
+        <div class="hero-stats-row">
+          <div>
+            <div class="stat-num">50+</div>
+            <div class="stat-label">Videos Edited</div>
+          </div>
+          <div>
+            <div class="stat-num">1M+</div>
+            <div class="stat-label">Total Views</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-right-label">FEATURED REELS</div>
+      <div class="hero-grid">
+        <div class="video-embed card-lg">
+          <iframe src="https://www.youtube.com/embed/YDHoT3vU41E" allowfullscreen></iframe>
+        </div>
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/S26T7bA_5p0" allowfullscreen></iframe>
+        </div>
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/q6I9E-NfM-4" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTS -->
+  <section id="clients">
+    <div class="clients-inner">
+      <div class="clients-label">TRUSTED BY CREATORS AT</div>
+      <div class="clients-logos">
+        <div class="client-logo">RIO ANIME CLUB</div>
+        <div class="client-logo">HARU & HAVOCK</div>
+        <div class="client-logo">YOUTUBE COMMUNITY</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK / PORTFOLIO -->
+  <section id="work">
+    <div class="work-header">
+      <div>
+        <div class="section-label">Selected Projects</div>
+        <h2 class="section-title">Featured Work</h2>
+      </div>
+      <div class="work-filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="video">Video</button>
+        <button class="filter-btn" data-filter="thumbnail">Thumbnails</button>
+      </div>
+    </div>
+
+    <div class="projects-grid" id="projects-grid">
+      <!-- NOVO VÍDEO RIO ANIME CLUB -->
+      <div class="project-card featured" data-cat="video">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/YDHoT3vU41E" allowfullscreen></iframe>
+        </div>
+        <div class="card-info">
+          <div class="card-tag">Promotional video for Rio Anime Club</div>
+          <h3 class="card-title">Rio Anime Club Promo</h3>
+          <p class="card-desc">Novo vídeo promocional oficial editado para as mídias do evento Rio Anime Club.</p>
+        </div>
+      </div>
+
+      <!-- VÍDEO ANTERIOR TRANSFERIDO PARA SHORT FORM -->
+      <div class="project-card" data-cat="video">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/q6I9E-NfM-4" allowfullscreen></iframe>
+        </div>
+        <div class="card-info">
+          <div class="card-tag">Short form video edit</div>
+          <h3 class="card-title">Rio Anime Club - Event Clip</h3>
+          <p class="card-desc">Edição dinâmica em formato vertical capturando a essência do evento.</p>
+        </div>
+      </div>
+
+      <!-- OUTROS VÍDEOS -->
+      <div class="project-card" data-cat="video">
+        <div class="video-embed">
+          <iframe src="https://www.youtube.com/embed/S26T7bA_5p0" allowfullscreen></iframe>
+        </div>
+        <div class="card-info">
+          <div class="card-tag">Short form video edit</div>
+          <h3 class="card-title">Capcut Template Tutorial</h3>
+          <p class="card-desc">Edição de vídeo tutorial explicativo focado em retenção de público.</p>
+        </div>
+      </div>
+
+      <!-- THUMBNAILS COM SUPORTE AO LIGHTBOX -->
+      <div class="project-card" data-cat="thumbnail">
+        <div class="img-wrap">
+          <img class="work-image" src="thumnail.png" alt="Gaming Thumbnail" />
+          <div class="overlay"></div>
+        </div>
+        <div class="card-info">
+          <div class="card-tag">Thumbnails Design</div>
+          <h3 class="card-title">Gaming Thumbnail Portfolio</h3>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="thumbnail">
+        <div class="img-wrap">
+          <img class="work-image" src="Haru_e_Havock.jfif" alt="Haru e Havock" />
+          <div class="overlay"></div>
+        </div>
+        <div class="card-info">
+          <div class="card-tag">Thumbnails Design</div>
+          <h3 class="card-title">Haru & Havock Feature</h3>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="thumbnail">
+        <div class="img-wrap">
+          <img class="work-image" src="thumb_crunchyroll.jpg" alt="Crunchyroll Style" />
+          <div class="overlay"></div>
+        </div>
+        <div class="card-info">
+          <div class="card-tag">Thumbnails Design</div>
+          <h3 class="card-title">Crunchyroll Style Art</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="reveal">
+    <div class="about-left">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">Bringing stories to life through edit.</h2>
+      <p class="about-body">Olá! Eu sou a Mia Alves. Combinando técnica refinada e olhar estético apurado, ajudo criadores e marcas a transformarem gravações brutas em conteúdos magnéticos de alto engajamento. Especializada em ritmos rápidos, design de som imersivo e assets sob medida.</p>
+    </div>
+    <div class="about-right">
+      <div class="photo-placeholder">
+        <img src="avatar.jpg" alt="Mia Alves Profile" class="headshot-photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <span style="display:none;">[ Mia Alves Photo / Avatar ]</span>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-row">
+          <div class="skill-name">Video Editing (Premiere & CapCut)</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" data-width="95"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">Motion Graphics & Effects</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" data-width="80"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-name">Thumbnail Design & Creative Art</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" data-width="85"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUME / EXPERIENCIA -->
+  <section id="resume" class="reveal">
+    <div class="resume-left">
+      <div class="section-label">Background</div>
+      <h2 class="section-title">Experience & Timeline</h2>
+      <div class="resume-download-box">
+        <div class="dl-meta">
+          <div class="dl-title">Curriculum Vitae</div>
+          <div class="dl-sub">PDF Format — 1.2 MB</div>
+        </div>
+        <a href="#" class="btn-primary" style="padding: 12px 20px;">DOWNLOAD CV</a>
+      </div>
+    </div>
+    <div class="resume-right">
+      <div class="experience-item">
+        <div class="exp-year">2023 — Present</div>
+        <div>
+          <div class="exp-role">Lead Video Editor & Designer</div>
+          <div class="exp-company">Freelance / Remote</div>
+          <div class="exp-desc">Produção e edição de conteúdo focado em mídias sociais (Reels, Shorts, TikTok) e artes de alta conversão para canais de entretenimento e eventos de cultura pop.</div>
+        </div>
+      </div>
+      <div class="experience-item">
+        <div class="exp-year">2021 — 2023</div>
+        <div>
+          <div class="exp-role">Content Producer Assistance</div>
+          <div class="exp-company">Digital Media Projects</div>
+          <div class="exp-desc">Suporte estratégico em roteirização, cortes dinâmicos e curadoria visual de materiais focados no nicho Geek e Anime.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="reveal">
+    <div class="contact-left">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="contact-tagline">Let's craft something <span>incredible together.</span></h2>
+      <div class="contact-links">
+        <a href="mailto:mia@email.com" class="contact-link">
+          <div class="contact-link-icon">✉</div>
+          <span>mia@email.com</span>
+          <div class="contact-link-arrow">↗</div>
+        </a>
+        <a href="https://instagram.com/miaalves" target="_blank" class="contact-link">
+          <div class="contact-link-icon">📸</div>
+          <span>@miaalves</span>
+          <div class="contact-link-arrow">↗</div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-right">
+      <p class="contact-note">Sempre aberta a propostas de projetos fixos, collabs ou freelas sob demanda. <strong>Responderei em até 24h úteis.</strong></p>
+      <div class="contact-services">
+        <div class="contact-service">
+          <div class="contact-service-label">01 / EDIT</div>
+          <div class="contact-service-text">Retenção de público, cortes cirúrgicos e sound design expressivo.</div>
+        </div>
+        <div class="contact-service">
+          <div class="contact-service-label">02 / BRANDING</div>
+          <div class="contact-service-text">Thumbnails chamativas e identidade em artes para redes sociais.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
 <footer>
-  <div class="footer-copy">© 2025 Mia Alves. All rights reserved.</div>
+  <div class="footer-copy">© 2026 Mia Alves. All rights reserved.</div>
   <div class="footer-links">
     <a href="mailto:mia@email.com">Email</a>
     <a href="https://instagram.com/miaalves" target="_blank">Instagram</a>
@@ -533,87 +666,7 @@ section { padding: 120px 64px; }
   </div>
 </footer>
 
-<section id="work">
-  <div class="work-header">
-    <div>
-      <div class="section-label">Selected Projects</div>
-      <h2 class="section-title">Featured Work</h2>
-    </div>
-    <div class="work-filters">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="video">Video</button>
-      <button class="filter-btn" data-filter="thumbnail">Thumbnails</button>
-    </div>
-  </div>
-
-  <div class="projects-grid" id="projects-grid">
-    <div class="project-card featured" data-cat="video">
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/YDHoT3vU41E" allowfullscreen></iframe>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">Promotional video for Rio Anime Club</div>
-        <h3 class="card-title">Rio Anime Club Promo</h3>
-        <p class="card-desc">Novo vídeo promocional editado para o evento Rio Anime Club.</p>
-      </div>
-    </div>
-
-    <div class="project-card" data-cat="video">
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/q6I9E-NfM-4" allowfullscreen></iframe>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">Short form video edit</div>
-        <h3 class="card-title">Rio Anime Club - Event Clip</h3>
-        <p class="card-desc">Edição de vídeo em formato curto com os melhores momentos do evento.</p>
-      </div>
-    </div>
-
-    <div class="project-card" data-cat="video">
-      <div class="video-embed">
-        <iframe src="https://www.youtube.com/embed/S26T7bA_5p0" allowfullscreen></iframe>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">Short form video edit</div>
-        <h3 class="card-title">Capcut Template Tutorial</h3>
-      </div>
-    </div>
-
-    <div class="project-card" data-cat="thumbnail">
-      <div class="img-wrap">
-        <img class="work-image" src="thumnail.png" alt="Thumbnail Arte" />
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">Thumbnails Design</div>
-        <h3 class="card-title">Gaming Thumbnail</h3>
-      </div>
-    </div>
-
-    <div class="project-card" data-cat="thumbnail">
-      <div class="img-wrap">
-        <img class="work-image" src="Haru_e_Havock.jfif" alt="Thumbnail Arte" />
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">Thumbnails Design</div>
-        <h3 class="card-title">Haru & Havock</h3>
-      </div>
-    </div>
-
-    <div class="project-card" data-cat="thumbnail">
-      <div class="img-wrap">
-        <img class="work-image" src="thumb_crunchyroll.jpg" alt="Thumbnail Arte" />
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">Thumbnails Design</div>
-        <h3 class="card-title">Crunchyroll Style Thumbnail</h3>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- LIGHTBOX MARKUP -->
 <div class="lightbox-modal" id="lightboxModal">
   <div class="lightbox-content">
     <button class="lightbox-close" id="lightboxClose">CLOSE X</button>
@@ -639,10 +692,6 @@ const revealObserver = new IntersectionObserver((entries) => {
       e.target.querySelectorAll && e.target.querySelectorAll('.skill-bar').forEach(bar => {
         bar.style.width = bar.dataset.width + '%';
       });
-      if (e.target.classList.contains('skill-row')) {
-        const bar = e.target.querySelector('.skill-bar');
-        if (bar) bar.style.width = bar.dataset.width + '%';
-      }
     }
   });
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
