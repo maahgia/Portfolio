@@ -265,6 +265,52 @@ section { padding: 120px 64px; }
 }
 .project-card.featured .card-title { font-size: 18px; }
 
+/* LIGHTBOX MODAL & CAROUSEL */
+.lightbox-modal {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(16, 14, 13, 0.96);
+  backdrop-filter: blur(16px);
+  display: none; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s ease;
+}
+.lightbox-modal.active { display: flex; opacity: 1; }
+.lightbox-content {
+  position: relative; max-width: 85vw; max-height: 80vh;
+  display: flex; flex-direction: column; align-items: center;
+}
+.lightbox-img {
+  max-width: 100%; max-height: 80vh;
+  object-fit: contain; border: 1px solid var(--border);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+  transform: scale(0.95); transition: transform 0.3s ease;
+}
+.lightbox-modal.active .lightbox-img { transform: scale(1); }
+.lightbox-close {
+  position: absolute; top: -50px; right: 0;
+  background: transparent; border: none; color: var(--fgMid);
+  font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600;
+  letter-spacing: 0.1em; cursor: pointer; transition: color 0.2s;
+  padding: 10px;
+}
+.lightbox-close:hover { color: var(--fg); }
+.lightbox-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(22, 19, 16, 0.6); border: 1px solid var(--border);
+  color: var(--fg); width: 50px; height: 50px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-size: 18px; transition: all 0.2s;
+  backdrop-filter: blur(4px); z-index: 1010;
+}
+.lightbox-nav:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.lightbox-prev { left: -80px; }
+.lightbox-next { right: -80px; }
+@media (max-width: 768px) {
+  .lightbox-prev { left: 10px; bottom: -70px; top: auto; transform: none; }
+  .lightbox-next { right: 10px; bottom: -70px; top: auto; transform: none; }
+  .lightbox-close { top: -60px; right: 10px; }
+  .lightbox-content { max-width: 95vw; }
+}
+
 /* ABOUT */
 #about {
   display: grid;
@@ -478,486 +524,6 @@ section { padding: 120px 64px; }
 }
 
 /* FOOTER */
-footer {
-  padding: 32px 64px;
-  border-top: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-}
-.footer-copy { font-size: 12px; color: var(--fgDim); }
-.footer-links { display: flex; gap: 24px; }
-.footer-links a { font-size: 12px; color: var(--fgDim); text-decoration: none; transition: color 0.2s; }
-.footer-links a:hover { color: var(--fgMid); }
-
-/* PLACEHOLDERS */
-.img-ph {
-  background: repeating-linear-gradient(45deg, #191714 0px, #191714 4px, #1f1c19 4px, #1f1c19 8px);
-  display: flex; align-items: flex-end; justify-content: flex-start;
-  overflow: hidden; position: relative;
-}
-.img-ph-label {
-  position: absolute; bottom: 10px; left: 12px;
-  font-family: monospace; font-size: 9px; color: var(--fgDim);
-  letter-spacing: 0.04em;
-}
-
-/* ANIMATIONS */
-.reveal {
-  opacity: 0; transform: translateY(24px);
-  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
-}
-.reveal.visible { opacity: 1; transform: none; }
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
-</style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav id="navbar">
-  <a class="nav-logo" href="#">MIA ALVES</a>
-  <ul class="nav-links">
-    <li><a href="#work">Work</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#resume">Resume</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-left">
-    <div>
-      <div class="hero-eyebrow">PORTFOLIO - 2026</div>
-      <h1 class="hero-name">MIA<br><span>ALVES</span></h1>
-      <p class="hero-bio">Video editor and content producer crafting short-form content, long-form narratives, and social strategies for brands that want to be remembered.</p>
-      <div class="hero-ctas">
-        <a href="#work" class="btn-primary">VIEW WORK</a>
-        <a href="#contact" class="btn-ghost">Get in touch -></a>
-      </div>
-    </div>
-    <div class="hero-stats">
-      <div class="hero-stats-divider"></div>
-      <div class="hero-stats-row">
-        <div>
-          <div class="stat-num">7+</div>
-          <div class="stat-label">Years editing</div>
-        </div>
-        <div>
-          <div class="stat-num">100+</div>
-          <div class="stat-label">Projects delivered</div>
-        </div>
-        <div>
-          <div class="stat-num">1M+</div>
-          <div class="stat-label">Views generated</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="hero-right-label">SELECTED WORK</div>
-    <div class="hero-grid">
-      <div class="video-embed card-lg" aria-label="Featured selected work video">
-        <iframe src="https://www.youtube.com/embed/MkZjtSqXn8w" title="Selected work video 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-      <div class="video-embed" aria-label="Selected work video">
-        <iframe src="https://www.youtube.com/embed/tRoDtFqoxiw" title="Hero short-form selected work" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-      <div class="video-embed" aria-label="Selected work video">
-        <iframe src="https://www.youtube.com/embed/Yvrwth-C8dU" title="Hero long-form selected work" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WORK -->
-<section id="work">
-  <div class="work-header">
-    <div>
-      <div class="section-label">SELECTED PROJECTS</div>
-      <h2 class="section-title reveal">Work</h2>
-    </div>
-    <div class="work-filters">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="short">Short-form</button>
-      <button class="filter-btn" data-filter="long">Long-form</button>
-      <button class="filter-btn" data-filter="social">Social</button>
-      <button class="filter-btn" data-filter="thumbnail">Thumbnail</button>
-    </div>
-  </div>
-
-  <div class="projects-grid" id="projects-grid">
-    <!-- Featured -->
-    <div class="project-card featured reveal" data-cat="social">
-      <div class="img-wrap">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/MkZjtSqXn8w" title="Selected work video 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">SOCIAL - YOUTUBE</div>
-        <div class="card-title">Social Video Edit</div>
-        <div class="card-desc">Selected social video edit built for online audiences and platform-native pacing.</div>
-      </div>
-    </div>
-
-    <div class="project-card reveal reveal-delay-1" data-cat="short">
-      <div class="img-wrap">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/7ihGhIbYAvA" title="Promotional video for Rio Anime Club - Brazil" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">SHORT-FORM - YOUTUBE</div>
-        <div class="card-title">Promotional Video for Rio Anime Club</div>
-        <div class="card-desc">Promotional video work for Rio Anime Club in Brazil.</div>
-      </div>
-    </div>
-
-    <div class="project-card reveal reveal-delay-1" data-cat="short">
-      <div class="img-wrap">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/tRoDtFqoxiw" title="Short-form selected work" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">SHORT-FORM - YOUTUBE</div>
-        <div class="card-title">Short-Form Video Edit</div>
-        <div class="card-desc">Hero short-form video included in the selected work section.</div>
-      </div>
-    </div>
-
-    <div class="project-card reveal reveal-delay-1" data-cat="social">
-      <div class="img-wrap">
-        <a class="work-image-link" href="https://www.instagram.com/p/BvxC-sSF3zS/" target="_blank" rel="noopener" aria-label="View Instagram social post">
-          <img class="work-image" src="instagram-preview.jpg" alt="Instagram social post preview" />
-        </a>
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">SOCIAL - INSTAGRAM</div>
-        <div class="card-title">Instagram Social Post</div>
-        <div class="card-desc">Social content example published on Instagram.</div>
-      </div>
-    </div>
-
-    <div class="project-card reveal reveal-delay-2" data-cat="thumbnail">
-      <div class="img-wrap">
-        <img class="work-image" src="thumnail.png" alt="YouTube thumbnail design example" />
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">THUMBNAIL - YOUTUBE</div>
-        <div class="card-title">Thumbnail Design</div>
-        <div class="card-desc">Example of visual packaging for YouTube content and click-through optimization.</div>
-      </div>
-    </div>
-
-    <div class="project-card reveal reveal-delay-2" data-cat="thumbnail">
-      <div class="img-wrap">
-        <img class="work-image" src="Haru_e_Havock.jfif" alt="Haru and Havock thumbnail design example" />
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">THUMBNAIL - YOUTUBE</div>
-        <div class="card-title">Haru e Havock Thumbnail</div>
-        <div class="card-desc">Additional thumbnail design example for character-driven video content.</div>
-      </div>
-    </div>
-
-    <div class="project-card reveal reveal-delay-2" data-cat="thumbnail">
-      <div class="img-wrap">
-        <img class="work-image" src="thumb_crunchyroll.jpg" alt="Crunchyroll thumbnail design example" />
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">THUMBNAIL - YOUTUBE</div>
-        <div class="card-title">Crunchyroll Thumbnail</div>
-        <div class="card-desc">Additional thumbnail design example for anime and entertainment content.</div>
-      </div>
-    </div>
-
-    <div class="project-card reveal reveal-delay-2" data-cat="long">
-      <div class="img-wrap">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/Yvrwth-C8dU" title="Long-form selected work 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">LONG-FORM - YOUTUBE</div>
-        <div class="card-title">Long-Form Video Edit</div>
-        <div class="card-desc">Selected long-form video edit from Mia's YouTube portfolio.</div>
-      </div>
-    </div>
-
-    <div class="project-card reveal reveal-delay-2" data-cat="long">
-      <div class="img-wrap">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/7ihGhIbYAvA" title="Long-form selected work 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">LONG-FORM - YOUTUBE</div>
-        <div class="card-title">Promotional Video for Rio Anime Club</div>
-        <div class="card-desc">Promotional video work for Rio Anime Club in Brazil.</div>
-      </div>
-    </div>
-
-    <div class="project-card reveal reveal-delay-3" data-cat="long">
-      <div class="img-wrap">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/YdpZweGU31o" title="Long-form selected work 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">LONG-FORM - YOUTUBE</div>
-        <div class="card-title">Long-Form Video Edit</div>
-        <div class="card-desc">Selected long-form editing example with narrative pacing and visual polish.</div>
-      </div>
-    </div>
-
-    <div class="project-card reveal reveal-delay-3" data-cat="long">
-      <div class="img-wrap">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/d8qJSwpMMKc" title="Long-form selected work 4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">LONG-FORM - YOUTUBE</div>
-        <div class="card-title">Long-Form Video Edit</div>
-        <div class="card-desc">Selected long-form video work for YouTube audiences.</div>
-      </div>
-    </div>
-
-    <div class="project-card featured reveal reveal-delay-4" data-cat="long">
-      <div class="img-wrap">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/SnPQ2ZvxWBs" title="Long-form selected work 5" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">LONG-FORM - YOUTUBE</div>
-        <div class="card-title">Long-Form Video Edit</div>
-        <div class="card-desc">Additional selected long-form video edit from Mia's portfolio.</div>
-      </div>
-    </div>
-
-    <div class="project-card reveal reveal-delay-3" data-cat="short">
-      <div class="img-wrap">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/ohvLSRhRwkE" title="YouTube short selected work" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-        <div class="overlay"></div>
-      </div>
-      <div class="card-info">
-        <div class="card-tag">SHORT-FORM - YOUTUBE SHORTS</div>
-        <div class="card-title">YouTube Short</div>
-        <div class="card-desc">Short-form video example designed for fast mobile viewing.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-left">
-    <div class="section-label">ABOUT ME</div>
-    <h2 class="section-title reveal">Turning moments<br>into stories that last.</h2>
-    <p class="about-body reveal reveal-delay-1">
-      I'm <strong>Mia Alves</strong>, a video editor and content producer with a strong focus on YouTube content and digital storytelling. I've worked closely with creators and events like anime conventions, helping bring engaging stories to life through video.
-    </p>
-    <p class="about-body reveal reveal-delay-2" style="margin-top:20px;">
-      I'm passionate about how social media shapes the way we connect, consume, and understand the world - and how that influence will continue to evolve. My work is driven by storytelling, with an emphasis on rhythm, emotion, and audience engagement. I believe the videos we create today become part of our story - a digital footprint of who we were and what we chose to share with the world.
-    </p>
-
-    <div class="skills-grid" style="margin-top:48px;">
-      <div class="section-label" style="margin-bottom:16px;">SKILLS</div>
-      <div class="skill-row reveal">
-        <span class="skill-name">Long-form Editing</span>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="100" style="width:0%"></div></div>
-      </div>
-      <div class="skill-row reveal reveal-delay-1">
-        <span class="skill-name">Color Grading</span>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="100" style="width:0%"></div></div>
-      </div>
-      <div class="skill-row reveal reveal-delay-2">
-        <span class="skill-name">Video Storytelling</span>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="100" style="width:0%"></div></div>
-      </div>
-      <div class="skill-row reveal reveal-delay-3">
-        <span class="skill-name">Short-form Editing</span>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="95" style="width:0%"></div></div>
-      </div>
-      <div class="skill-row reveal reveal-delay-4">
-        <span class="skill-name">Audio Editing</span>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="95" style="width:0%"></div></div>
-      </div>
-      <div class="skill-row reveal reveal-delay-4">
-        <span class="skill-name">Social Media Strategy</span>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="90" style="width:0%"></div></div>
-      </div>
-      <div class="skill-row reveal reveal-delay-4">
-        <span class="skill-name">Motion Graphics</span>
-        <div class="skill-bar-wrap"><div class="skill-bar" data-width="80" style="width:0%"></div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="about-right">
-    <img class="headshot-photo reveal" src="Headshot.png" alt="Mia Alves headshot" />
-
-    <div class="tools-wrap reveal reveal-delay-1">
-      <div class="section-label" style="margin-bottom:16px;">TOOLS</div>
-      <div style="display:flex; flex-wrap:wrap; gap:8px;">
-        <span style="font-family:'Syne';font-size:11px;letter-spacing:0.08em;color:var(--fgMid);padding:8px 16px;border:1px solid var(--border);">Premiere Pro</span>
-        <span style="font-family:'Syne';font-size:11px;letter-spacing:0.08em;color:var(--fgMid);padding:8px 16px;border:1px solid var(--border);">After Effects</span>
-        <span style="font-family:'Syne';font-size:11px;letter-spacing:0.08em;color:var(--fgMid);padding:8px 16px;border:1px solid var(--border);">Photoshop</span>
-        <span style="font-family:'Syne';font-size:11px;letter-spacing:0.08em;color:var(--fgMid);padding:8px 16px;border:1px solid var(--border);">Audition</span>
-        <span style="font-family:'Syne';font-size:11px;letter-spacing:0.08em;color:var(--fgMid);padding:8px 16px;border:1px solid var(--border);">Audacity</span>
-        <span style="font-family:'Syne';font-size:11px;letter-spacing:0.08em;color:var(--fgMid);padding:8px 16px;border:1px solid var(--border);">CapCut</span>
-        <span style="font-family:'Syne';font-size:11px;letter-spacing:0.08em;color:var(--fgMid);padding:8px 16px;border:1px solid var(--border);">DaVinci</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CLIENTS -->
-<section id="clients">
-  <div class="clients-inner">
-    <div class="clients-label">CLIENTS &amp; BRANDS</div>
-    <div class="clients-logos">
-      <div class="client-logo">PATRUX</div>
-      <div class="client-logo">CANAL DA HARU</div>
-      <div class="client-logo">DUBLADIANDO</div>
-      <div class="client-logo">MORIMURA</div>
-      <div class="client-logo">RIO ANIME CLUB</div>
-      <div class="client-logo">PRESOS EM GALAPAGOS</div>
-      <div class="client-logo">MORE</div>
-    </div>
-  </div>
-</section>
-
-<!-- RESUME -->
-<section id="resume">
-  <div class="resume-left">
-    <div class="section-label">EXPERIENCE</div>
-    <h2 class="section-title reveal">Career</h2>
-    <p style="margin-top:20px;font-size:14px;color:var(--fgMid);line-height:1.6;" class="reveal reveal-delay-1">
-      10+ years in audiovisual content creation, with experience across YouTube editing, platform-native storytelling, event production, visual design, and fast-paced team coordination.
-    </p>
-    <div class="resume-download-box reveal reveal-delay-2">
-      <div class="dl-meta">
-        <div class="dl-title">Full Resume</div>
-        <div class="dl-sub">PDF - Last updated 2025</div>
-      </div>
-      <a href="Resume.pdf" class="btn-primary" download>DOWNLOAD ↓</a>
-    </div>
-  </div>
-  <div class="resume-right">
-    <div class="experience-item reveal">
-      <div class="exp-year">NOV 2023-PRESENT</div>
-      <div>
-        <div class="exp-role">Host</div>
-        <div class="exp-company">Kelly's Landing - Toronto, ON</div>
-        <div class="exp-desc">Managed high-volume guest flow of 250+ daily guests, coordinated seating and workflow, and reduced wait times by 20%+ while maintaining service quality under pressure.</div>
-      </div>
-    </div>
-    <div class="experience-item reveal reveal-delay-1">
-      <div class="exp-year">JAN 2019-OCT 2023</div>
-      <div>
-        <div class="exp-role">Video Editor</div>
-        <div class="exp-company">YouTube Freelancer - Brazil</div>
-        <div class="exp-desc">Produced and edited YouTube content with 24-hour turnaround, supported 6 creators across channels with 100K-7M subscribers, and drove up to 87% higher viewership through editing, pacing, thumbnail strategy, and visual optimization.</div>
-      </div>
-    </div>
-    <div class="experience-item reveal reveal-delay-2">
-      <div class="exp-year">OCT 2015-DEC 2022</div>
-      <div>
-        <div class="exp-role">Producer Assistant</div>
-        <div class="exp-company">Rio Anime Club - Brazil</div>
-        <div class="exp-desc">Produced and edited promotional video content, increased social media engagement by 100%, and supported 3 annual large-scale events with approximately 7,000 attendees through logistics, vendor coordination, and cross-functional planning.</div>
-      </div>
-    </div>
-    <div class="experience-item reveal reveal-delay-3">
-      <div class="exp-year">2024-2025</div>
-      <div>
-        <div class="exp-role">Post-Graduation, International Fashion Management</div>
-        <div class="exp-company">George Brown College - Toronto, ON</div>
-        <div class="exp-desc">Recognized for strong public speaking and quick adaptability to new software introduced during classes.</div>
-      </div>
-    </div>
-    <div class="experience-item reveal reveal-delay-4" style="border-bottom:none;">
-      <div class="exp-year">2012-2017</div>
-      <div>
-        <div class="exp-role">Bachelor's of Fine Arts</div>
-        <div class="exp-company">State University of Maringa - Brazil</div>
-        <div class="exp-desc">Co-authored three published papers on sustainable fashion practices and participated in on-campus philanthropic initiatives.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-left">
-    <div class="section-label">CONTACT</div>
-    <h2 class="contact-tagline reveal">Let's make<br>something<br><span>great.</span></h2>
-    <div class="contact-links">
-      <a href="mailto:mia@email.com" class="contact-link reveal reveal-delay-1">
-        <div class="contact-link-icon">@</div>
-        <div>
-          <div style="font-size:11px;letter-spacing:0.08em;color:var(--fgDim);margin-bottom:2px;">EMAIL</div>
-          <div style="font-size:14px;color:var(--fg)">mia@email.com</div>
-        </div>
-        <span class="contact-link-arrow">-></span>
-      </a>
-      <a href="https://instagram.com/miaalves" target="_blank" class="contact-link reveal reveal-delay-2">
-        <div class="contact-link-icon" style="font-size:15px;">IG</div>
-        <div>
-          <div style="font-size:11px;letter-spacing:0.08em;color:var(--fgDim);margin-bottom:2px;">INSTAGRAM</div>
-          <div style="font-size:14px;color:var(--fg)">@miaalves</div>
-        </div>
-        <span class="contact-link-arrow">-></span>
-      </a>
-    </div>
-  </div>
-
-  <div class="contact-right">
-    <div class="section-label" style="margin-bottom:32px;">COLLABORATE</div>
-    <p class="contact-note reveal">
-      For bookings, edits, retainers, or creative direction, email me directly with a few details about your project, timeline, and platform.
-    </p>
-    <div class="contact-services">
-      <div class="contact-service reveal reveal-delay-1">
-        <div class="contact-service-label">EDITING</div>
-        <div class="contact-service-text">Short-form, long-form, social clips, YouTube edits, and launch videos.</div>
-      </div>
-      <div class="contact-service reveal reveal-delay-2">
-        <div class="contact-service-label">STRATEGY</div>
-        <div class="contact-service-text">Content planning, platform pacing, hooks, retention, and repurposing.</div>
-      </div>
-      <div class="contact-service reveal reveal-delay-3">
-        <div class="contact-service-label">TURNAROUND</div>
-        <div class="contact-service-text">Flexible project timelines for one-off edits and ongoing monthly work.</div>
-      </div>
-      <div class="contact-service reveal reveal-delay-4">
-        <div class="contact-service-label">CONTACT</div>
-        <div class="contact-service-text">Best reached by email for project inquiries and availability.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
   <div class="footer-copy">© 2025 Mia Alves. All rights reserved.</div>
   <div class="footer-links">
@@ -967,11 +533,101 @@ footer {
   </div>
 </footer>
 
+<section id="work">
+  <div class="work-header">
+    <div>
+      <div class="section-label">Selected Projects</div>
+      <h2 class="section-title">Featured Work</h2>
+    </div>
+    <div class="work-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="video">Video</button>
+      <button class="filter-btn" data-filter="thumbnail">Thumbnails</button>
+    </div>
+  </div>
+
+  <div class="projects-grid" id="projects-grid">
+    <div class="project-card featured" data-cat="video">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/YDHoT3vU41E" allowfullscreen></iframe>
+      </div>
+      <div class="card-info">
+        <div class="card-tag">Promotional video for Rio Anime Club</div>
+        <h3 class="card-title">Rio Anime Club Promo</h3>
+        <p class="card-desc">Novo vídeo promocional editado para o evento Rio Anime Club.</p>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="video">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/q6I9E-NfM-4" allowfullscreen></iframe>
+      </div>
+      <div class="card-info">
+        <div class="card-tag">Short form video edit</div>
+        <h3 class="card-title">Rio Anime Club - Event Clip</h3>
+        <p class="card-desc">Edição de vídeo em formato curto com os melhores momentos do evento.</p>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="video">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/S26T7bA_5p0" allowfullscreen></iframe>
+      </div>
+      <div class="card-info">
+        <div class="card-tag">Short form video edit</div>
+        <h3 class="card-title">Capcut Template Tutorial</h3>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="thumbnail">
+      <div class="img-wrap">
+        <img class="work-image" src="thumnail.png" alt="Thumbnail Arte" />
+        <div class="overlay"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-tag">Thumbnails Design</div>
+        <h3 class="card-title">Gaming Thumbnail</h3>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="thumbnail">
+      <div class="img-wrap">
+        <img class="work-image" src="Haru_e_Havock.jfif" alt="Thumbnail Arte" />
+        <div class="overlay"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-tag">Thumbnails Design</div>
+        <h3 class="card-title">Haru & Havock</h3>
+      </div>
+    </div>
+
+    <div class="project-card" data-cat="thumbnail">
+      <div class="img-wrap">
+        <img class="work-image" src="thumb_crunchyroll.jpg" alt="Thumbnail Arte" />
+        <div class="overlay"></div>
+      </div>
+      <div class="card-info">
+        <div class="card-tag">Thumbnails Design</div>
+        <h3 class="card-title">Crunchyroll Style Thumbnail</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox-modal" id="lightboxModal">
+  <div class="lightbox-content">
+    <button class="lightbox-close" id="lightboxClose">CLOSE X</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&lt;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="Fullscreen view" />
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">&gt;</button>
+  </div>
+</div>
+
 <script>
 // Nav scroll effect
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 40);
+  if(navbar) navbar.classList.toggle('scrolled', window.scrollY > 40);
 });
 
 // Reveal on scroll
@@ -980,7 +636,6 @@ const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.classList.add('visible');
-      // Animate skill bars
       e.target.querySelectorAll && e.target.querySelectorAll('.skill-bar').forEach(bar => {
         bar.style.width = bar.dataset.width + '%';
       });
@@ -1008,6 +663,79 @@ filterBtns.forEach(btn => {
   });
 });
 
+// LIGHTBOX & CAROUSEL LOGIC
+const lightboxModal = document.getElementById('lightboxModal');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxClose = document.getElementById('lightboxClose');
+const lightboxPrev = document.getElementById('lightboxPrev');
+const lightboxNext = document.getElementById('lightboxNext');
+
+let thumbnailImages = [];
+let currentImgIndex = 0;
+
+function updateLightboxArray() {
+  thumbnailImages = [];
+  const thumbCards = document.querySelectorAll('.project-card[data-cat="thumbnail"]');
+  thumbCards.forEach(card => {
+    const img = card.querySelector('.work-image');
+    if (img) {
+      thumbnailImages.push(img.getAttribute('src'));
+    }
+  });
+}
+
+updateLightboxArray();
+
+document.getElementById('projects-grid').addEventListener('click', (e) => {
+  const card = e.target.closest('.project-card[data-cat="thumbnail"]');
+  if (card) {
+    const targetImg = card.querySelector('.work-image');
+    if (targetImg) {
+      const src = targetImg.getAttribute('src');
+      currentImgIndex = thumbnailImages.indexOf(src);
+      if (currentImgIndex !== -1) {
+        openLightbox(src);
+      }
+    }
+  }
+});
+
+function openLightbox(src) {
+  lightboxImg.setAttribute('src', src);
+  lightboxModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightboxModal.classList.remove('active');
+  document.body.style.overflow = '';
+  setTimeout(() => lightboxImg.setAttribute('src', ''), 300);
+}
+
+function nextImage() {
+  if (thumbnailImages.length === 0) return;
+  currentImgIndex = (currentImgIndex + 1) % thumbnailImages.length;
+  lightboxImg.setAttribute('src', thumbnailImages[currentImgIndex]);
+}
+
+function prevImage() {
+  if (thumbnailImages.length === 0) return;
+  currentImgIndex = (currentImgIndex - 1 + thumbnailImages.length) % thumbnailImages.length;
+  lightboxImg.setAttribute('src', thumbnailImages[currentImgIndex]);
+}
+
+lightboxClose.addEventListener('click', closeLightbox);
+lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); nextImage(); });
+lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); prevImage(); });
+lightboxModal.addEventListener('click', closeLightbox);
+lightboxImg.addEventListener('click', (e) => e.stopPropagation());
+
+window.addEventListener('keydown', (e) => {
+  if (!lightboxModal.classList.contains('active')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') nextImage();
+  if (e.key === 'ArrowLeft') prevImage();
+});
 </script>
 
 </body>
